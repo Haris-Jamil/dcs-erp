@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>Admin Panel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" >
+    <link href = "https://code.jquery.com/ui/1.12.0/themes/ui-lightness/jquery-ui.css"
+        rel = "stylesheet">
+
+    <style>
+      .navbar{
+        border-radius:0px;
+      }
+      .margin-top{
+        margin-top: 30px;
+      }
+      .title-row{
+        background-color: #34495e;
+        color: white;
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <% include ../partial/admin_nav  %>
+
+    <div class="container" >
+
+      <h3>Teachers</h3>
+      <hr>
+
+      <div class="row" >
+        <div class="col-md-8" >
+          <ul class="nav nav-tabs">
+            <li class="active"><a href="#allTeachers" data-toggle="tab">Teachers</a></li>
+            <li><a href="#addTeacher" data-toggle="tab">Add Teachers</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div id="myTabContent" class="tab-content">
+
+        <div class="tab-pane fade active in margin-top" id="allTeachers">
+          <table class="table">
+            <tr class="title-row" >
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>User Name</th>
+            </tr>
+
+            <% teachers.forEach(function(teacher){ %>
+              <tr>
+                <td><%= teacher.first_name %></td>
+                <td><%= teacher.last_name %></td>
+                <td><%= teacher.userName %></td>
+              </tr>
+            <% }); %>
+
+          </table>
+        </div>
+
+        <div class="tab-pane fade margin-top" id="addTeacher">
+          <form id="add-teacher-form" >
+              <fieldset>
+                <legend>Add Teacher</legend>
+
+                <div class="form-group" >
+                  <label>First Name:</label>
+                  <input type="text" required name="first_name" class="form-control" />
+                </div>
+
+                <div class="form-group" >
+                  <label>Last Name:</label>
+                  <input type="text" required name="last_name" class="form-control" />
+                </div>
+
+                <div class="form-group" >
+                  <label>Username:</label>
+                  <input type="text" required name="username" class="form-control" />
+                </div>
+
+                <div class="form-group" >
+                  <label>Set Password:</label>
+                  <input type="password" required  name="password" class="form-control" />
+                </div>
+
+                <div>
+                  <input id="add-btn" type="submit" class="btn btn-success" value="Add" />
+                </div>
+
+              </fieldset>
+          </form>
+        </div>
+
+      </div>
+
+    </div>
+
+    <script src="/js/jquery-3.2.1.min.js" ></script>
+    <script src="/js/bootstrap.min.js" ></script>
+    <script src="/js/notify.min.js"></script>
+
+    <script>
+      $('#add-teacher-form').submit(function(e){
+
+        $.ajax({
+          type: 'POST',
+          url: '/teachers/add',
+          data: $('#add-teacher-form').serialize(),
+          success: function(data){
+            $('#add-btn').notify("Teacher Added",
+              {
+                position: "right middle",
+                className: "success",
+              });
+          }
+        });
+        e.preventDefault();
+      });
+    </script>
+
+  </body>
+
+</html>

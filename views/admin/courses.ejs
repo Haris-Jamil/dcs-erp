@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>Admin Panel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" >
+    <link href = "https://code.jquery.com/ui/1.12.0/themes/ui-lightness/jquery-ui.css"
+        rel = "stylesheet">
+
+    <style>
+      .navbar{
+        border-radius:0px;
+      }
+      .margin-top{
+        margin-top: 30px;
+      }
+      .title-row{
+        background-color: #34495e;
+        color: white;
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <% include ../partial/admin_nav  %>
+
+    <div class="container" >
+
+      <div>
+        <h3>Courses</h3>
+        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#newCourseModal">Add new course</button>
+      </div>
+      <hr>
+
+      <div class="row" >
+        <div class="col-md-8" >
+          <ul class="nav nav-tabs">
+            <li class="active"><a href="#1st" data-toggle="tab">1st year</a></li>
+            <li><a href="#2nd" data-toggle="tab">2nd year</a></li>
+            <li><a href="#3rd" data-toggle="tab">3rd year</a></li>
+            <li><a href="#4th" data-toggle="tab">4th year</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div id="myTabContent" class="tab-content">
+
+        <div class="tab-pane fade active in margin-top" id="1st">
+
+          <h5>BSCS</h5>
+          <table class="table" >
+            <tr class="info" >
+              <td>Course #</td>
+              <td>Course Title</td>
+              <td>Credit Hours</td>
+            </tr>
+            <% csCourses.forEach(function(course){ %>
+              <% if(course.year == 1){ %>
+                <tr>
+                  <td><%= course.number %></td>
+                  <td><%= course.title %></td>
+                  <td><%= course.credit %></td>
+                </tr>
+              <% } %>
+            <% }); %>
+          </table>
+          <hr>
+
+          <h5>BSSE</h5>
+          <table class="table" >
+            <tr class="info" >
+              <td>Course #</td>
+              <td>Course Title</td>
+              <td>Credit Hours</td>
+            </tr>
+            <% seCourses.forEach(function(course){ %>
+              <% if(course.year == 1){ %>
+                <tr>
+                  <td><%= course.number %></td>
+                  <td><%= course.title %></td>
+                  <td><%= course.credit %></td>
+                </tr>
+              <% } %>
+            <% }); %>
+          </table>
+          <hr>
+
+          <h5>MCS</h5>
+          <table class="table" >
+            <tr class="info" >
+              <td>Course #</td>
+              <td>Course Title</td>
+              <td>Credit Hours</td>
+            </tr>
+            <% mcsCourses.forEach(function(course){ %>
+              <% if(course.year == 1){ %>
+                <tr>
+                  <td><%= course.number %></td>
+                  <td><%= course.title %></td>
+                  <td><%= course.credit %></td>
+                </tr>
+              <% } %>
+            <% }); %>
+          </table>
+        </div>
+
+        <div class="tab-pane fade margin-top" id="2nd">
+          <h5>BSCS</h5>
+          <table class="table" >
+            <tr class="info" >
+              <td>Course #</td>
+              <td>Course Title</td>
+              <td>Credit Hours</td>
+            </tr>
+            <% csCourses.forEach(function(course){ %>
+              <% if(course.year == 2){ %>
+                <tr>
+                  <td><%= course.number %></td>
+                  <td><%= course.title %></td>
+                  <td><%= course.credit %></td>
+                </tr>
+              <% } %>
+            <% }); %>
+          </table>
+          <hr>
+
+          <h5>BSSE</h5>
+          <table class="table" >
+            <tr class="info" >
+              <td>Course #</td>
+              <td>Course Title</td>
+              <td>Credit Hours</td>
+            </tr>
+            <% seCourses.forEach(function(course){ %>
+              <% if(course.year == 2){ %>
+                <tr>
+                  <td><%= course.number %></td>
+                  <td><%= course.title %></td>
+                  <td><%= course.credit %></td>
+                </tr>
+              <% } %>
+            <% }); %>
+          </table>
+          <hr>
+
+          <h5>MCS</h5>
+          <table class="table" >
+            <tr class="info" >
+              <td>Course #</td>
+              <td>Course Title</td>
+              <td>Credit Hours</td>
+            </tr>
+            <% mcsCourses.forEach(function(course){ %>
+              <% if(course.year == 2){ %>
+                <tr>
+                  <td><%= course.number %></td>
+                  <td><%= course.title %></td>
+                  <td><%= course.credit %></td>
+                </tr>
+              <% } %>
+            <% }); %>
+          </table>
+        </div>
+
+        <div class="tab-pane fade in margin-top" id="3rd">
+          <h5>BSCS</h5>
+          <table class="table" >
+            <tr class="info" >
+              <td>Course #</td>
+              <td>Course Title</td>
+              <td>Credit Hours</td>
+            </tr>
+            <% csCourses.forEach(function(course){ %>
+              <% if(course.year == 3){ %>
+                <tr>
+                  <td><%= course.number %></td>
+                  <td><%= course.title %></td>
+                  <td><%= course.credit %></td>
+                </tr>
+              <% } %>
+            <% }); %>
+          </table>
+          <hr>
+
+          <h5>BSSE</h5>
+          <table class="table" >
+            <tr class="info" >
+              <td>Course #</td>
+              <td>Course Title</td>
+              <td>Credit Hours</td>
+            </tr>
+            <% seCourses.forEach(function(course){ %>
+              <% if(course.year == 3){ %>
+                <tr>
+                  <td><%= course.number %></td>
+                  <td><%= course.title %></td>
+                  <td><%= course.credit %></td>
+                </tr>
+              <% } %>
+            <% }); %>
+          </table>
+          <hr>
+
+          <h5>MCS</h5>
+          <table class="table" >
+            <tr class="info" >
+              <td>Course #</td>
+              <td>Course Title</td>
+              <td>Credit Hours</td>
+            </tr>
+            <% mcsCourses.forEach(function(course){ %>
+              <% if(course.year == 3){ %>
+                <tr>
+                  <td><%= course.number %></td>
+                  <td><%= course.title %></td>
+                  <td><%= course.credit %></td>
+                </tr>
+              <% } %>
+            <% }); %>
+          </table>
+        </div>
+
+        <div class="tab-pane fade margin-top" id="4th">
+          <h5>BSCS</h5>
+          <table class="table" >
+            <tr class="info" >
+              <td>Course #</td>
+              <td>Course Title</td>
+              <td>Credit Hours</td>
+            </tr>
+            <% csCourses.forEach(function(course){ %>
+              <% if(course.year == 4){ %>
+                <tr>
+                  <td><%= course.number %></td>
+                  <td><%= course.title %></td>
+                  <td><%= course.credit %></td>
+                </tr>
+              <% } %>
+            <% }); %>
+          </table>
+          <hr>
+
+          <h5>BSSE</h5>
+          <table class="table" >
+            <tr class="info" >
+              <td>Course #</td>
+              <td>Course Title</td>
+              <td>Credit Hours</td>
+            </tr>
+            <% seCourses.forEach(function(course){ %>
+              <% if(course.year == 4){ %>
+                <tr>
+                  <td><%= course.number %></td>
+                  <td><%= course.title %></td>
+                  <td><%= course.credit %></td>
+                </tr>
+              <% } %>
+            <% }); %>
+          </table>
+          <hr>
+
+          <h5>MCS</h5>
+          <table class="table" >
+            <tr class="info" >
+              <td>Course #</td>
+              <td>Course Title</td>
+              <td>Credit Hours</td>
+            </tr>
+            <% mcsCourses.forEach(function(course){ %>
+              <% if(course.year == 4){ %>
+                <tr>
+                  <td><%= course.number %></td>
+                  <td><%= course.title %></td>
+                  <td><%= course.credit %></td>
+                </tr>
+              <% } %>
+            <% }); %>
+          </table>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- Create New Form Modal  Start -->
+    <div id="newCourseModal" class="modal fade" role="dialog" >
+      <div class="modal-dialog" >
+        <div class="modal-content" >
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">ADD NEW COURSE</h4>
+          </div>
+
+          <div class="modal-body" >
+
+            <form id="new-course-form" >
+
+              <input type="text" name="num" class="form-control" placeholder="Course Number" required />
+              <br>
+
+              <input type="text" name="title" class="form-control" placeholder="Course Title" required />
+              <br>
+
+              <input type="text" name="credit" class="form-control" placeholder="Credit Hours" required />
+              <br>
+
+              <select class="form-control" name="degree" required>
+                <option value="none" selected disabled>Select Course</option>
+                <option value="BSCS" >BSCS</option>
+                <option value="BSSE" >BSSE</option>
+                <option value="MCS" >MCS</option>
+              </select>
+              <br>
+
+              <select class="form-control" name="year" required>
+                <option value="none" selected disabled>Select Year</option>
+                <option value="1" >1st</option>
+                <option value="2" >2nd</option>
+                <option value="3" >3rd</option>
+                <option value="4" >4th</option>
+              </select>
+              <br>
+
+              <input type="submit" class="btn btn-success center-block" value="Add" />
+
+            </form>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+    <!-- Create New Form Modal End -->
+
+    <script src="/js/jquery-3.2.1.min.js" ></script>
+    <script src="/js/bootstrap.min.js" ></script>
+    <script src="/js/notify.min.js"></script>
+
+    <script>
+      $('#new-course-form').submit(function(e){
+        $.ajax({
+          type: 'POST',
+          url: '/courses/add',
+          data: $('#new-course-form').serialize(),
+          success: function(data){
+            alert(data);
+            // $('#add-btn').notify("Teacher Added",
+            //   {
+            //     position: "right middle",
+            //     className: "success",
+            //   });
+          }
+        });
+        e.preventDefault();
+      });
+    </script>
+
+  </body>
+
+</html>

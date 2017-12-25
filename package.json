@@ -1,0 +1,21 @@
+{
+  "name": "dcs-erp",
+  "version": "1.0.0",
+  "description": "ERP Software for DCS (FYP)",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Haris Jamil",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "csv-parse": "^2.0.0",
+    "ejs": "^2.5.7",
+    "express": "^4.16.1",
+    "express-session": "^1.15.6",
+    "md5": "^2.2.1",
+    "multer": "^1.3.0",
+    "mysql": "^2.15.0"
+  }
+}

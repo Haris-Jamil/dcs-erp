@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>Admin Panel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" >
+    <link href = "https://code.jquery.com/ui/1.12.0/themes/ui-lightness/jquery-ui.css"
+        rel = "stylesheet">
+
+    <style>
+      .navbar{
+        border-radius:0px;
+      }
+      .margin-top{
+        margin-top: 30px;
+      }
+      .title-row{
+        background-color: #34495e;
+        color: white;
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <% include ../partial/admin_nav  %>
+
+    <div class="container" >
+
+      <h3><%=classes[0].program + "-" + classes[0].section %></h3>
+      <h5><%=classes[0].year + " year (" + classes[0].shift + ")" %></h5>
+      <hr>
+      
+      <div class="row" >
+        <div class="col-md-8" >
+          <ul class="nav nav-tabs">
+            <li class="active"><a href="#allStudent" data-toggle="tab">Students</a></li>
+            <li><a href="#addStudent" data-toggle="tab">Add Students</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4" >
+          <a class="btn btn-info btn-sm pull-right" href="/admin/class" ><span class="glyphicon glyphicon-chevron-left " ></span> Back</a>
+        </div>
+      </div>
+
+      <div id="myTabContent" class="tab-content">
+
+        <div class="tab-pane fade active in margin-top" id="allStudent">
+          <table class="table">
+            <tr class="title-row" >
+              <th>Roll No.</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+            </tr>
+            <% if(students.length > 0){ %>
+              <% students.forEach(function(student){ %>
+                <tr>
+                  <td><%= student.id %></td>
+                  <td><%= student.first_name %></td>
+                  <td><%= student.last_name %></td>
+                </tr>
+                <% }); %>
+            <% }else{ %>
+                <tr class="text-center" >
+                  <td colspan="3" ><h4>Add students using <strong>Add Students</strong> tab</h4></td>
+                </tr>
+            <% } %>
+          </table>
+        </div>
+
+        <div class="tab-pane fade margin-top" id="addStudent">
+          <form action="/admin/students" method="post" enctype="multipart/form-data">
+              <fieldset>
+                  <legend>Add Students</legend>
+
+                  <input type="hidden" name="class" value="<%= classes[0].id %>" />
+
+                  <div class="form-group">
+                      <label>Select a CSV file</label>
+                      <input type="file" required name="csvdata" accept="text/csv" class="form-control" >
+                  </div>
+                  <div>
+                      <button type="submit" class="btn btn-success">Submit</button>
+                  </div>
+              </fieldset>
+          </form>
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+
+
+    <script src="/js/jquery-3.2.1.min.js" ></script>
+    <script src="/js/bootstrap.min.js" ></script>
+  </body>
+
+</html>

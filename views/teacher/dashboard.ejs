@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Teacher</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+	<link href="https://code.jquery.com/ui/1.12.0/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+
+	<style>
+		.navbar {
+			border-radius: 0px;
+			margin-bottom: 0px;
+		}
+	</style>
+</head>
+
+<body>
+
+	<% include ../partial/teacher_nav  %>
+
+		<div class="container">
+			<br>
+			<% if (courses.no_courses) { %>
+				<h4 class="text-center">Hello
+					<%=courses.first_name%>
+						<%=courses.last_name%>, you have no classes assigned as of yet.</h4>
+			<%} else { %>
+				<h4 class="text-center">Hello,
+					<%=courses[0].first_name%>
+						<%=courses[0].last_name%> your classes are mentioned below</h4>
+				<hr>
+				<div class="row">
+					<% courses.forEach(function(course){ %>
+						<div class="col-md-4 well text-center" style="border:1px solid #BDC3C7;">
+							<h4 style="color:<%= course.color %>">
+								<%= course.title %>
+							</h4>
+							<% if(course.type=='T'){ %>
+								<h5 style="color:<%= course.color %>">(Theory)</h5>
+								<% }else{ %>
+									<h5 style="color:<%= course.color %>">(Lab)</h5>
+									<% } %>
+										<hr>
+										<p style="font-size:15px;margin-bottom:0px;">
+											<%= course.program %>-
+												<%= course.section %>
+													<%= course.year %> year (
+														<%= course.shift %>) <br>
+															<%= course.day %><br>
+																<%= course.start_time %> -
+																	<%= course.end_time %><br>
+																		<%= course.location %>
+										</p>
+										<hr>
+										<a class="btn btn-sm btn-primary" href="/teacher/classView/<%= course.id %>">Go to class</a>
+						</div>
+						<% }); %>
+				</div>
+			<% } %>
+		</div>
+
+		<script src="/js/jquery-3.2.1.min.js"></script>
+		<script src="/js/bootstrap.min.js"></script>
+		<script src="/js/notify.min.js"></script>
+		<script src="/js/jquery-ui.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>Admin Panel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" >
+    <link href = "https://code.jquery.com/ui/1.12.0/themes/ui-lightness/jquery-ui.css"
+        rel = "stylesheet">
+
+    <style>
+    .navbar{
+      border-radius:0px;
+      margin-bottom: 0px;
+    }
+    #tt-canvas{
+      border:1px solid black;
+      background-color: #ecf0f1;
+    }
+    #menu{
+      padding: 20px 0px 20px 0px;
+      width:900px;
+      margin:auto;
+    }
+    </style>
+  </head>
+
+  <body>
+    <% include ../partial/admin_nav  %>
+    <div id="menu">
+
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addCourse"><span class="glyphicon glyphicon-plus" ></span> Add Course</button>
+
+      <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteCourse"><span class="glyphicon glyphicon-remove" ></span> Delete Course</button>
+
+      <a class="btn btn-success" id="download" ><span class="glyphicon glyphicon-download" ></span> Download Time Table</a>
+
+      <a class="btn btn-info pull-right" href="/admin/class" ><span class="glyphicon glyphicon-chevron-left " ></span> Back</a>
+
+    </div>
+
+    <!-- Create New Form Modal  Start -->
+    <div id="addCourse" class="modal fade" role="dialog" >
+      <div class="modal-dialog" >
+
+        <div class="modal-content" >
+
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">ADD NEW COURSE</h4>
+          </div>
+
+          <div class="modal-body" >
+
+            <form id="new-course-form" >
+
+              <!-- <input type="text" required placeholder="Course title" class="form-control" name="title" />
+              <br> -->
+              <select required class="form-control" name="course_id" >
+                  <option selected disabled >Select Course</option>
+                <% courses.forEach(function(course){ %>
+                  <option value="<%= course.id %>" ><%= course.number + "-" + course.title %></option>
+                <% }); %>
+              </select>
+              <br>
+
+              <select class="form-control" name="day" required >
+                <option value="none" selected disabled>Select Day</option>
+                <option value="Monday" >Monday</option>
+                <option value="Tuesday" >Tuesday</option>
+                <option value="Wednesday" >Wednesday</option>
+                <option value="Thursday" >Thursday</option>
+                <option value="Friday" >Friday</option>
+              </select>
+              <br>
+
+              <% if(timetable[0].shift == 'Evening' ){ %>
+                <select class="form-control" name="start_time" required >
+                  <option value="none" selected disabled>Start Time</option>
+                  <option value="03:30 pm" >03:30 pm</option>
+                  <option value="04:20 pm" >04:20 pm</option>
+                  <option value="05:10 pm" >05:10 pm</option>
+                  <option value="06:00 pm" >06:00 pm</option>
+                  <option value="06:50 pm" >06:50 pm</option>
+                  <option value="07:40 pm" >07:40 pm</option>
+                </select>
+                <br>
+
+                <select class="form-control" name="end_time" required >
+                  <option value="none" selected disabled>End Time</option>
+                  <option value="04:20 pm" >04:20 pm</option>
+                  <option value="05:10 pm" >05:10 pm</option>
+                  <option value="06:00 pm" >06:00 pm</option>
+                  <option value="06:50 pm" >06:50 pm</option>
+                  <option value="07:40 pm" >07:40 pm</option>
+                  <option value="08:30 pm" >08:30 pm</option>
+                </select>
+                <br>
+              <% }else{ %>
+
+                <select class="form-control" name="start_time" required >
+                  <option value="none" selected disabled>Start Time</option>
+                  <option value="09:00 am" >09:00 am</option>
+                  <option value="09:50 am" >09:50 am</option>
+                  <option value="10:00 am" >10:00 am</option>
+                  <option value="10:50 am" >10:50 am</option>
+                  <option value="11:00 am" >11:00 am</option>
+                  <option value="11:50 am" >11:50 am</option>
+                  <option value="12:00 pm" >12:00 pm</option>
+                  <option value="12:50 pm" >12:50 pm</option>
+                  <option value="01:50 pm" >01:50 pm</option>
+                </select>
+                <br>
+
+                <select class="form-control" name="end_time" required >
+                  <option value="none" selected disabled>End Time</option>
+                  <option value="09:50 am" >09:50 am</option>
+                  <option value="10:00 am" >10:00 am</option>
+                  <option value="10:50 am" >10:50 am</option>
+                  <option value="11:00 am" >11:00 am</option>
+                  <option value="11:50 am" >11:50 am</option>
+                  <option value="12:00 pm" >12:00 pm</option>
+                  <option value="12:50 pm" >12:50 pm</option>
+                  <option value="01:50 pm" >01:50 pm</option>
+                  <option value="2:40 pm" >2:40 pm</option>
+                </select>
+                <br>
+              <% } %>
+
+              <select required class="form-control" name="teacher" >
+                  <option selected disabled >Select Teacher</option>
+                <% teachers.forEach(function(teacher){ %>
+                  <option value="<%= teacher.id %>" ><%= teacher.first_name + " " + teacher.last_name %></option>
+                <% }); %>
+              </select>
+              <br>
+
+              <select class="form-control" name="type" required>
+                <option value="none" selected disabled>Select Class Type</option>
+                <option value="T" >Theory</option>
+                <option value="L" >Lab</option>
+              </select>
+              <br>
+
+              <input type="text" required class="form-control" placeholder="location" name="location" />
+              <br>
+
+              <input type="hidden" value="<%= timetable[0].id %>" name="ttid" />
+
+              <label>Choose Color <input class="form-control" type="color" name="color" value="#ffffff" /></label>
+              <br><br>
+
+              <input type="submit" class="btn btn-success center-block" value="Add" />
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Create New Form Modal End -->
+
+    <!-- Delete Course Modal Start -->
+    <div id="deleteCourse" class="modal fade" role="dialog" >
+      <div class="modal-dialog" >
+
+        <div class="modal-content" >
+
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">DELETE COURSE</h4>
+          </div>
+          <div class="modal-body">
+
+              <% classes.forEach(function(clas){ %>
+                <div style="background-color: <%= clas.color %>; padding: 2px;margin-bottom:5px;" >
+                    <h5 style="color:white;margin-left:10px;" >
+                      <%= clas.course_title + " (" + clas.type + ") " %>
+                      <a class="pull-right" style="color:white;margin-right:10px;" href="javascript:void(0)" onclick="removeCourse(<%= clas.id %>);" >
+                        <span class="glyphicon glyphicon-remove" ></span>
+                      </a>
+                    </h5>
+                </div>
+              <% }); %>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Delete Course Modal End -->
+
+    <canvas class="center-block col-md-" id="tt-canvas" height="700" width="900"></canvas>
+
+    <script src="/js/jquery-3.2.1.min.js" ></script>
+    <script src="/js/bootstrap.min.js" ></script>
+    <script src = "/js/jquery-ui.js"></script>
+
+    <script>
+
+    var c = document.getElementById('tt-canvas');
+    var ctx = c.getContext("2d");
+
+    var days = {
+      'Monday': 100,
+      'Tuesday': 256,
+      'Wednesday': 412,
+      'Thursday': 568,
+      'Friday': 724
+    };
+
+    var times = {
+      '09:00 am': 130,
+      '09:50 am': 165,
+      '10:00 am': 200,
+      '10:50 am': 235,
+      '11:00 am': 270,
+      '11:50 am': 305,
+      '12:00 pm': 340,
+      '12:50 pm': 375,
+      '01:50 pm': 410,
+      '02:40 pm': 445,
+      '03:30 pm': 480,
+      '04:20 pm': 515,
+      '05:10 pm': 550,
+      '06:00 pm': 585,
+      '06:50 pm': 620,
+      '07:40 pm': 655,
+      '08:30 pm': 690,
+    };
+
+    $('#new-course-form').submit(function(e){
+      $.ajax({
+        type: 'POST',
+        url: '/addcourse',
+        data: $('#new-course-form').serialize(),
+        success: function(data){
+          location.reload();
+        }
+      });
+      e.preventDefault();
+    });
+
+    $('#download').click(function(){
+      this.href = document.getElementById('tt-canvas').toDataURL();
+      this.download = "timetable.png";
+    });
+
+    function removeCourse(id){
+      $.ajax({
+        type: 'GET',
+        url: '/deletecourse/'+id,
+        success: function(data){
+          $('#deleteCourse').modal('toggle');
+          setTimeout(function(){
+              location.reload();
+          },300);
+        }
+      });
+    }
+
+
+    $(document).ready(function(){
+      $.ajax({
+        type: 'GET',
+        url: '/getcourses/<%=timetable[0].id%>',
+        success: function(data){
+          data = JSON.parse(data);
+
+          var year;
+          ctx.font = '25pt Calibri';
+
+          ctx.fillText("<%= timetable[0].program + "-" +timetable[0].section + " " + timetable[0].shift %>", 340 , 30);
+          ctx.fillText("(<%=timetable[0].year %>" + " Year)", 380 , 70);
+
+          //Canvas Drawing
+          ctx.font = '15pt Calibri';
+          for(var day in days){
+              //Draw Days Name
+              ctx.fillText(day, 40 + days[day], 120);
+              //Draw Vertical Lines
+              ctx.beginPath();
+              ctx.moveTo(days[day], 130 ) ;
+              ctx.lineTo(days[day], 690);
+              ctx.stroke();
+          }
+          //last vertical line
+          ctx.beginPath();
+          ctx.moveTo(880, 130 ) ;
+          ctx.lineTo(880, 690);
+          ctx.stroke();
+
+          ctx.font = '10pt Calibri';
+          for(var t in times){
+            //Draw Times
+            ctx.fillText(t, 20, 3 + times[t] );
+
+            //Draw Horizontal Lines
+            ctx.beginPath();
+            ctx.moveTo(80, times[t] );
+            ctx.lineTo(880, times[t] );
+            ctx.stroke();
+          }
+
+          data.forEach(function(course){
+            ctx.fillStyle = course.color;
+            ctx.fillRect(days[course.day]+2, times[course.start_time]+2 ,152 , Math.abs(times[course.start_time]-times[course.end_time])-4);
+            ctx.fillStyle = "#ffffff";
+            ctx.font = "10pt Calibri";
+            ctx.fillText(course.title + " (" + course.type + ")" , days[course.day]+8, times[course.start_time]+15 );
+            ctx.font = '10pt Calibri';
+            ctx.fillText(course.first_name + " " + course.last_name, days[course.day]+8, times[course.start_time]+27 );
+            ctx.fillText(course.location, days[course.day]+8, times[course.start_time]+39 );
+          });
+
+        }
+      });
+    });
+    </script>
+
+  </body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>DCS-ERP - <%= data.firstName %>  <%= data.lastName %></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" >
+    <link href = "https://code.jquery.com/ui/1.12.0/themes/ui-lightness/jquery-ui.css"
+        rel = "stylesheet">
+
+    <style>
+    .navbar{
+      border-radius:0px;
+    }
+    #bio-div{
+      background-color: #EEEEEE;
+      margin: 0px 10px 0px 10px;
+      padding: 0px 10px 20px 10px;
+      color: #34495E;
+    }
+    .row{
+      margin: 0px;
+    }
+    </style>
+
+  </head>
+
+  <body>
+
+    <% include ../partial/student_nav  %>
+
+    <div class="container-fluid" >
+      <div class="row" >
+
+        <div class="col-md-3" id="bio-div"  >
+
+          <img src="/images/avatar.png" class="img-responsive" style="padding:10px;" />
+
+          <h1 style="color:#2574A9;font-weight:bold;" class="text-center" ><%= data.firstName %>  <%= data.lastName %></h1>
+
+          <% if(about == undefined){ %>
+            <div class="text-center" style="padding:20px;" >
+              <a class="btn btn-default" id="add-detail" > Add Details </a>
+            </div>
+          <% } else { %>
+
+            <% if(about[0].year == 1 ){ %>
+              <h2 class="text-center" ><b>1st Year Student</b></h2>
+            <% } else if(about[0].year == 2) { %>
+              <h2 class="text-center" ><b>2nd Year Student</b></h2>
+            <% } else if(about[0].year == 3) { %>
+              <h2 class="text-center" ><b>3rd Year Student</b></h2>
+            <% } else{ %>
+              <h2 class="text-center" ><b>Final Year Student</b></h2>
+            <% } %>
+
+            <div style="background-color:#2574A9;color:white;padding:5px 0px 5px 0px;" >
+              <% if(about[0].course == 'CS' ){ %>
+                <h3 class="text-center" >BSCS - <%= about[0].section %> (<%= about[0].shift %>) </h3>
+              <% } else { %>
+                <h3 class="text-center" >BSSE - <%= about[0].section %> (<%= about[0].shift %>) </h3>
+              <% } %>
+              <h3 class="text-center" ><%= about[0].roll_no %></h3>
+            </div>
+
+            <% if( session.userID == about[0].student_id ){ %>
+            <div class="text-center" style="margin-top:5px;" >
+              <a class="btn btn-default" href="" >Update Info</a>
+            </div>
+            <% } %>
+
+
+          <% } %>
+        </div>
+
+        <div class="col-dm-9" >
+        </div>
+
+      </div>
+    </div>
+
+    <div id="add-detail-form" >
+      <form method="post" action="/user/add-detail" >
+        <input type="hidden" name="studentID" value="<%= data.id %>" >
+        <select class="form-control" name="shift" >
+          <option disabled selected >Select Shift</option>
+          <option value="morning">Morning</option>
+          <option value="evening">Evening</option>
+        </select>
+        <br>
+        <select class="form-control" name="year" >
+          <option disabled selected >Select year of study</option>
+          <option value="1">First Year</option>
+          <option value="2">Second Year</option>
+          <option value="3">Third Year</option>
+          <option value="4">Fourth Year</option>
+        </select>
+        <br>
+        <select class="form-control" name="course" >
+          <option disabled selected >Select Course</option>
+          <option value="CS">BSCS</option>
+          <option value="SE">BSSE</option>
+        </select>
+        <br>
+        <select class="form-control" name="section" >
+          <option disabled selected >Select Section</option>
+          <option value="A">A</option>
+          <option value="B">B</option>
+        </select>
+        <br>
+        <input type="text" name="rollNo" class="form-control" placeholder="Roll No" />
+        <br>
+        <input type="submit" value="Submit" class="btn btn-success btn-sm" >
+
+      </form>
+    </div>
+
+
+
+
+    <script src="/js/jquery-3.2.1.min.js" ></script>
+    <script src="/js/bootstrap.min.js" ></script>
+    <script src="/js/notify.min.js" ></script>
+    <script src = "https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+
+    <script>
+      $('#add-detail-form').dialog({
+        autoOpen: false,
+        title: "Enter Your Detail",
+        position: {my:'center'},
+        modal: true
+      });
+      $('#add-detail').click(function(){
+        $('#add-detail-form').dialog('open');
+      });
+    </script>
+
+  </body>
+
+</html>

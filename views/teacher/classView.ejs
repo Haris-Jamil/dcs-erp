@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>ClassView</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" >
+    <link href = "https://code.jquery.com/ui/1.12.0/themes/ui-lightness/jquery-ui.css"
+        rel = "stylesheet">
+
+    <style>
+    .navbar{
+      border-radius:0px;
+      margin-bottom: 0px;
+    }
+    </style>
+  </head>
+
+  <body>
+
+    <% include ../partial/teacher_nav  %>
+
+    <div class="container" >
+
+      <h3 style="font-weight:bold;"><%= myclass[0].program %>-<%= myclass[0].section %> <%= myclass[0].year %> year (<%= myclass[0].shift %>)</h3>
+      <hr>
+
+      <table class="table table-striped " >
+        <tr class="info" >
+          <th>Seat #</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+        </tr>
+
+        <% students.forEach(function(student){ %>
+          <tr>
+            <td><%= student.id %></td>
+            <td><%= student.first_name %></td>
+            <td><%= student.last_name %></td>
+          </tr>
+        <% }); %>
+
+      </table>
+    </div>
+
+
+
+    <script src="/js/jquery-3.2.1.min.js" ></script>
+    <script src="/js/bootstrap.min.js" ></script>
+    <script src="/js/notify.min.js" ></script>
+    <script src = "/js/jquery-ui.js"></script>
+
+  </body>
+
+</html>
