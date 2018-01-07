@@ -35,7 +35,7 @@ module.exports = function (app, db) {
 				result.no_courses = true;
 			}
 			console.log(result);
-			res.render('teacher/dashboard', { courses: result });
+			res.render('teacher/dashboard', { courses: result, teacher: currentTeacher });
 		});
 	});
 
